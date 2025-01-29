@@ -3,7 +3,7 @@ import Header from "../Component/Header";
 
 function RandomUser() {
   return (
-    <BgLayout height='h-full'>
+    <BgLayout height="">
       <Header />
       <div className="flex justify-center text-center gap-4 flex-wrap my-4 mt-6 px-4">
         <div>
@@ -21,7 +21,10 @@ function RandomUser() {
           <label className="text-white mr-3" htmlFor="gender">
             Gender:
           </label>
-          <select className="rounded py-1 text-gray-800 bg-gray-200" name="gender">
+          <select
+            className="rounded py-1 text-gray-800 bg-gray-200"
+            name="gender"
+          >
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
@@ -32,7 +35,7 @@ function RandomUser() {
           </label>
           <select
             className="rounded py-1 text-base text-gray-800 bg-gray-200"
-            name="continent" 
+            name="continent"
           >
             <option value="africa">Africa</option>
             <option value="antarctica">Antarctica</option>
@@ -44,18 +47,20 @@ function RandomUser() {
           </select>
         </div>
         <div>
-            <button className="border-2 border-gray-300 text-white rounded-lg px-4 py-1 font-semibold bg-purple-700 text-base">Generate 🤖</button>
+          <button className="border-2 border-gray-300 text-white rounded-lg px-4 py-1 font-semibold bg-purple-700 text-base">
+            Re-generate 🔃
+          </button>
         </div>
       </div>
 
-      <div className="py-4">
-        <div className="w-full p-10 font-semibold text-xl">
+      <div className="py-4 md:flex md:mx-32">
+        <div className="w-full p-10 font-semibold text-xl md:w-6/12">
           <div className="w-full">
             <p className="mb-4">
               <span className=" w-5/12 inline-block text-purple-400">
                 Name:
               </span>
-              <span className="text-white">Salaudeen Abdullah</span>
+              <span className="text-white">Johnathan Doe</span>
             </p>
             <p className="mb-4">
               <span className=" w-5/12 text-purple-400 inline-block">Age:</span>
@@ -89,19 +94,18 @@ function RandomUser() {
             </p>
           </div>
         </div>
-        <div className="border-2 mb-0 border-purple-500 rounded-2xl p-6 m-6 bg-slate-800 shadow-lg">
-          <p className="text-center font-bold text-2xl text-purple-400 mb-4">AI back story 🤖</p>
+        <div className="border-2 mb-0 border-purple-500 rounded-2xl p-6 m-4 bg-slate-800 shadow-lg md:w-6/12">
+          <p className="text-center font-bold text-2xl text-purple-400 mb-4">
+            AI back story 🤖
+          </p>
           <div className="text-gray-300 leading-relaxed">
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using Content here, content
-            here, making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for lorem ipsum will uncover many web
-            sites still in their infancy. Various versions have evolved over the
-            years, sometimes by accident, sometimes on purpose (injected humour
-            and the like).
+            I’m Johnathan Doe, a 21-year-old developer from Nigeria. Born on
+            December 11, 2004, I grew up fascinated by technology, spending
+            countless nights coding and breaking things just to fix them again.
+            My passion led me to build projects that solve real-world problems.
+            When I’m not behind a screen, I’m exploring new ideas, gaming, or
+            debating tech trends with friends. Every line of code I write brings
+            me closer to shaping the future.
           </div>
         </div>
       </div>
