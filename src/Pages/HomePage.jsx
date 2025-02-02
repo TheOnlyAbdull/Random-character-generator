@@ -4,7 +4,7 @@ import BgLayout from "../Component/BgLayout";
 
 function HomePage() {
   return (
-    <BgLayout height='h-screen'>
+    <BgLayout>
       <Header />
       <div className="px-5 text-center h-v my-8 mb-32 text-gray-300 md:w-7/12 md:mx-auto">
         <h1 className="text-5xl md:text-6xl">
