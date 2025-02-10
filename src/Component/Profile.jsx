@@ -1,40 +1,36 @@
-const testData = {
-  age: [18, 25],
-  gender: "male",
-  continent: "africa",
-};
 
-function Profile() {
+function Profile({results}) {
+    const data = results[0];
   return (
     <div className="w-full p-10 font-semibold text-xl md:w-6/12">
       <div className="w-full">
         <p className="mb-4">
           <span className=" w-5/12 inline-block text-purple-400">Name:</span>
-          <span className="text-white">Johnathan Doe</span>
+          <span className="text-white">{data.name.first} {data.name.last}</span>
         </p>
         <p className="mb-4">
           <span className=" w-5/12 text-purple-400 inline-block">Age:</span>
-          <span className="text-white">21 years</span>
+          <span className="text-white">{data.dob.age} years</span>
         </p>
         <p className="mb-4">
           <span className="w-5/12 text-purple-400 inline-block">Gender:</span>
-          <span className="text-white">Male</span>
+          <span className="text-white">{data.gender}</span>
         </p>
       </div>
       <div className="w-full">
         <p className="mb-4">
           <span className=" w-5/12 text-purple-400 inline-block">D.O.B:</span>
-          <span className="text-white">12/11/2004</span>
+          <span className="text-white">{data.dob.date.slice(0, 10)}</span>
         </p>
         <p className="mb-4">
           <span className="w-5/12 text-purple-400 inline-block">Country:</span>
-          <span className="text-white">Nigeria</span>
+          <span className="text-white">{data.location.country}</span>
         </p>
         <p className="mb-4">
           <span className="w-5/12 text-purple-400 inline-block">
-            Occupation:
+            Address:
           </span>
-          <span className="text-white">Developer</span>
+          <span className="text-white">{data.location.street.number} {data.location.street.name}</span>
         </p>
       </div>
     </div>
