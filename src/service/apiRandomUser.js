@@ -4,7 +4,7 @@ var requestOptions = {
   method: "GET",
   redirect: "follow",
 };
-export async function getDetails(age, gender, country) {
+export async function getDetails(age, gender='female', country='US') {
     let query = "";
 
     if (age !== "Random") {

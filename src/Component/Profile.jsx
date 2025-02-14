@@ -1,6 +1,20 @@
 
-function Profile({results}) {
+function Profile({results, age}) {
     const data = results[0];
+
+    function getRandomAge(min){
+        return Math.floor(Math.random() * ((min + 15) - min + 1) + min);
+    }
+
+
+    let derivedAge, isNotRandom = age !== "Random";
+    if(isNotRandom) {
+        derivedAge = getRandomAge(Number(age));
+        }
+        
+
+    const diplsayAge = isNotRandom ? derivedAge : data.dob.age;
+  
   return (
     <div className="w-full p-10 font-semibold text-xl md:w-6/12">
       <div className="w-full">
@@ -10,7 +24,7 @@ function Profile({results}) {
         </p>
         <p className="mb-4">
           <span className=" w-5/12 text-purple-400 inline-block">Age:</span>
-          <span className="text-white">{data.dob.age} years</span>
+          <span className="text-white">{diplsayAge} years</span>
         </p>
         <p className="mb-4">
           <span className="w-5/12 text-purple-400 inline-block">Gender:</span>

@@ -4,29 +4,12 @@ import Profile from "../Component/Profile";
 import BackStory from "../Component/BackStory";
 import { getDetails } from "../service/apiRandomUser";
 import { useLoaderData, useRevalidator } from "react-router-dom";
-import { useReducer, useState } from "react";
+import { useState } from "react";
 
-const initialState ={
-  age: "Random",
-  country: "Random",
-  gender: "Random",
-}
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'SET_AGE':
-      return { ...state, age: action.payload };
-    case 'SET_COUNTRY':
-      return { ...state, country: action.payload };
-    case 'SET_GENDER':
-      return { ...state, gender: action.payload };
-    default:
-      return state;
-  }
-}
-  
 function RandomUser() {
-  const [{age,country,gender }, dispatch] = useReducer(reducer, initialState);
+  const [age, setAge] = useState("Random");
+  const [country, setCountry] = useState("Random");
+  const [gender, setGender] = useState("Random");
 
   const { results } = useLoaderData();
   // console.log(results[0]);
@@ -47,15 +30,15 @@ function RandomUser() {
           </label>
           <select
             value={age}
-            onChange={(e) => dispatch({ type: 'SET_AGE', payload: e.target.value })}
+            onChange={(e) => setAge(e.target.value)}
             className="rounded py-1 text-gray-800 bg-gray-200"
             name="age"
           >
             <option value="Random">Random</option>
-            <option value="18-25">18-25</option>
-            <option value="25-45">25-45</option>
-            <option value="45-65">45-65</option>
-            <option value="65-70">65-70</option>
+            <option value={20}>20-35</option>
+            <option value={35}>35-55</option>
+            <option value={55}>55-70</option>
+            <option value={70}>70-85</option>
           </select>
         </div>
         <div>
@@ -63,7 +46,7 @@ function RandomUser() {
             Gender:
           </label>
           <select
-            onChange={(e) =>dispatch({ type: 'SET_GENDER', payload: e.target.value })}
+            onChange={(e) => setCountry(e.target.value)}
             className="rounded py-1 text-gray-800 bg-gray-200"
             name="gender"
             value={gender}
@@ -80,7 +63,7 @@ function RandomUser() {
           <select
             className="rounded py-1 text-base text-gray-800 bg-gray-200"
             name="country"
-            onChange={(e) => dispatch({ type: 'SET_COUNTRY', payload: e.target.value })}
+            onChange={(e) => setGender(e.target.value)}
             value={country}
           >
             <option value="Random">Random</option>
@@ -118,18 +101,17 @@ function RandomUser() {
       </div>
 
       <div className="py-4 md:flex md:mx-32">
-        <Profile results={results} />
+        <Profile results={results} age={age} />
         <BackStory />
       </div>
     </BgLayout>
   );
 }
 
-
+const gen = 'boy';
 
 export async function loader() {
-  const profile = await getDetails(initialState.age, initialState.gender, initialState.country);
-  console.log(initialState.age)
+  const profile = await getDetails(gen);
   return profile;
 }
 
