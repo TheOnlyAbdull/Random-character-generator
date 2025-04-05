@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
-import RandomUser, {loader as profileLoader} from "./Pages/RandomUser";
+// import RandomUser, {loader as profileLoader} from "./Pages/RandomUser";
+import RandomUser from "./Pages/RandomUser";
 
 const router = createBrowserRouter([
   {
@@ -10,7 +11,7 @@ const router = createBrowserRouter([
   {
     path: "RandomUser",
     element: <RandomUser/>,
-    loader: profileLoader,
+    // loader: profileLoader,
   }
 ])
 

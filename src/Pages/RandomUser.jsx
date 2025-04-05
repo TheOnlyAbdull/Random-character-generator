@@ -2,117 +2,97 @@ import BgLayout from "../Component/BgLayout";
 import Header from "../Component/Header";
 import Profile from "../Component/Profile";
 import BackStory from "../Component/BackStory";
+// import { getDetails } from "../service/apiRandomUser";
+// import { useLoaderData, useRevalidator } from "react-router-dom";
+import { createContext, useEffect, useState } from "react";
+import ProfileFilter from "../Component/ProfileFilter";
 import { getDetails } from "../service/apiRandomUser";
-import { useLoaderData, useRevalidator } from "react-router-dom";
-import { useState } from "react";
+
+export const ProfileContext = createContext();
 
 function RandomUser() {
-  const [age, setAge] = useState("Random");
+  const [age, setAge] = useState('Random');
   const [country, setCountry] = useState("Random");
-  const [gender, setGender] = useState("Random");
+  const [gender, setGender] = useState('Random');
+  const [isLoading, setIsloading] = useState(false);
 
-  const { results } = useLoaderData();
-  // console.log(results[0]);
+  const [profileData, setProfileData] = useState({
+    disAge: '',
+    disCountry: "",
+    disGender: "",
+    disName: "",
+    disDOB: "",
+    disAddress: "",
+  });
 
-  const revalidator = useRevalidator();
+  //Generate random age, 
+  // function getRandomAge(min) {
+  //   const results = Math.floor(Math.random() * (min + 15 - min + 1) + min);
+  //   // setAge(getRandomAge(Number(min)));
+  //   setAge(results);
+  //   // console.log(age)
+  //   return results;
+  // }
 
-  function getUser() {
-    revalidator.revalidate();
+  // //Set age to random when age is not random
+  // const isNotRandom = age !== "Random";
+  // if (isNotRandom) {
+  //   setAge(getRandomAge(Number(age)));
+  // }
+
+  // get New profile
+  function getNewProfile() {
+    // revalidator.revalidate();
   }
-
+  // console.log(profileData)
+  useEffect(() => {
+    async function fetchDetails() {
+      // const data = await getDetails(age, gender, country);
+      setIsloading(true);
+      const data = await getDetails(age, gender, country);
+      const res = data.results[0];
+      console.log(res);
+      setProfileData((prevData) => ({...prevData, disAge: res.dob.age + ' years', disCountry: res.location.country, disGender: res.gender , disName: `${res.name.first} ${res.name.last}`, disDOB: res.dob.date, disAddress: `${res.location.street.number} ${res.location.street.name}`})) 
+      setIsloading(false);
+    }
+    
+  
+    fetchDetails();
+  }, []);
+  
   return (
-    <BgLayout>
-      <Header />
-      <div className="flex justify-center text-center gap-4 flex-wrap my-4 mt-6 px-4">
-        <div>
-          <label className="text-white mr-3" htmlFor="age">
-            Age-range:
-          </label>
-          <select
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            className="rounded py-1 text-gray-800 bg-gray-200"
-            name="age"
-          >
-            <option value="Random">Random</option>
-            <option value={20}>20-35</option>
-            <option value={35}>35-55</option>
-            <option value={55}>55-70</option>
-            <option value={70}>70-85</option>
-          </select>
-        </div>
-        <div>
-          <label className="text-white mr-3" htmlFor="gender">
-            Gender:
-          </label>
-          <select
-            onChange={(e) => setCountry(e.target.value)}
-            className="rounded py-1 text-gray-800 bg-gray-200"
-            name="gender"
-            value={gender}
-          >
-            <option value="Random">Random</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </div>
-        <div>
-          <label className="text-white mr-3" htmlFor="continent">
-            Country:
-          </label>
-          <select
-            className="rounded py-1 text-base text-gray-800 bg-gray-200"
-            name="country"
-            onChange={(e) => setGender(e.target.value)}
-            value={country}
-          >
-            <option value="Random">Random</option>
-            <option value="AU">Australia</option>
-            <option value="BR">Brazil</option>
-            <option value="CA">Canada</option>
-            <option value="CH">Switzerland</option>
-            <option value="DE">Germany</option>
-            <option value="DK">Denmark</option>
-            <option value="ES">Spain</option>
-            <option value="FI">Finland</option>
-            <option value="FR">France</option>
-            <option value="GB">United Kingdom</option>
-            <option value="IE">Ireland</option>
-            <option value="IN">India</option>
-            <option value="IR">Iran</option>
-            <option value="MX">Mexico</option>
-            <option value="NL">Netherlands</option>
-            <option value="NO">Norway</option>
-            <option value="NZ">New Zealand</option>
-            <option value="RS">Serbia</option>
-            <option value="TR">Turkey</option>
-            <option value="UA">Ukraine</option>
-            <option value="US">United States</option>
-          </select>
-        </div>
-        <div>
-          <button
-            onClick={getUser}
-            className="border-2 border-gray-300 text-white rounded-lg px-4 py-1 font-semibold bg-purple-700 text-base"
-          >
-            Re-generate 🔃
-          </button>
-        </div>
-      </div>
+    <ProfileContext.Provider
+      value={{
+        age,
+        setAge,
+        country,
+        setCountry,
+        gender,
+        setGender,
+        profileData,
+        isLoading
+      }}
+    >
+      <BgLayout>
+        <Header />
+        <ProfileFilter />
 
-      <div className="py-4 md:flex md:mx-32">
-        <Profile results={results} age={age} />
-        <BackStory />
-      </div>
-    </BgLayout>
+        <div className="py-4 md:flex md:mx-32">
+          {/* <Profile results={results} age={age} /> */}
+          <Profile />
+          <BackStory />
+        </div>
+      </BgLayout>
+    </ProfileContext.Provider>
   );
 }
 
-const gen = 'boy';
+// const gen = "boy";
 
-export async function loader() {
-  const profile = await getDetails(gen);
-  return profile;
-}
+// export async function loader() {
+//   const {} = useContext(ProfileContext);
+//   const profile = await getDetails(gen);
+//   return profile;
+// }
 
 export default RandomUser;

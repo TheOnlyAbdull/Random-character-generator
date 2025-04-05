@@ -1,27 +1,26 @@
-const API = "https://randomuser.me//api?";
+const API = "https://randomuser.me//api";
 
 var requestOptions = {
   method: "GET",
   redirect: "follow",
 };
-export async function getDetails(age, gender='female', country='US') {
-    let query = "";
+// export async function getDetails(age, gender, country) {
+export async function getDetails() {
+    // let query = "";
 
-    if (age !== "Random") {
-      query += `?age=${age}`;
-    }
-    if (gender !== "Random") {
-      query += `&gender=${gender}`;
-    }
-    if (country !== "Random") {
-      query += `&nat=${country}`;
-    }
+    // if (gender !== "Random") {
+    //   query += `&gender=${gender}`;
+    // }
+    // if (country !== "Random") {
+    //   query += `&nat=${country}`;
+    // }
 
   const res = await fetch(
-    `${API}${query}`,
+    `${API}`,
     requestOptions
   );
   if (!res.ok) throw Error("Could not fetch data");
   const data = await res.json();
+  console.log(data)
   return data;
 }
