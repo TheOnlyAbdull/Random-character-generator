@@ -11,13 +11,16 @@ import { getDetails } from "../service/apiRandomUser";
 export const ProfileContext = createContext();
 
 function RandomUser() {
-  const [age, setAge] = useState('Random');
+  const [age, setAge] = useState("Random");
   const [country, setCountry] = useState("Random");
-  const [gender, setGender] = useState('Random');
+  const [gender, setGender] = useState("Random");
   const [isLoading, setIsloading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [backStory, setBackStory] = useState("");
+
 
   const [profileData, setProfileData] = useState({
-    disAge: '',
+    disAge: "",
     disCountry: "",
     disGender: "",
     disName: "",
@@ -25,7 +28,7 @@ function RandomUser() {
     disAddress: "",
   });
 
-  //Generate random age, 
+  //Generate random age,
   // function getRandomAge(min) {
   //   const results = Math.floor(Math.random() * (min + 15 - min + 1) + min);
   //   // setAge(getRandomAge(Number(min)));
@@ -34,32 +37,45 @@ function RandomUser() {
   //   return results;
   // }
 
-  // //Set age to random when age is not random
-  // const isNotRandom = age !== "Random";
-  // if (isNotRandom) {
-  //   setAge(getRandomAge(Number(age)));
-  // }
+  async function fetchDetails() {
+    // const data = await getDetails(age, gender, country);
+    setErrorMsg(false);
+    setIsloading(true);
+    setBackStory("");
 
-  // get New profile
-  function getNewProfile() {
-    // revalidator.revalidate();
-  }
-  // console.log(profileData)
-  useEffect(() => {
-    async function fetchDetails() {
-      // const data = await getDetails(age, gender, country);
-      setIsloading(true);
+    try {
       const data = await getDetails(age, gender, country);
-      const res = data.results[0];
-      console.log(res);
-      setProfileData((prevData) => ({...prevData, disAge: res.dob.age + ' years', disCountry: res.location.country, disGender: res.gender , disName: `${res.name.first} ${res.name.last}`, disDOB: res.dob.date, disAddress: `${res.location.street.number} ${res.location.street.name}`})) 
+      if (data === "Error") {
+        setErrorMsg("Error fetching data 😪");
+        console.log("Error fetching data");
+      } else {
+        const res = data.results[0];
+        console.log(res);
+        setProfileData((prevData) => ({
+          ...prevData,
+          disAge: res.dob.age + " years",
+          disCountry: res.location.country,
+          disGender: res.gender,
+          disName: `${res.name.first} ${res.name.last}`,
+          disDOB: res.dob.date,
+          disAddress: `${res.location.street.number} ${res.location.street.name}`,
+        }));
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setErrorMsg('Something went wrong 😪');
+    } finally {
       setIsloading(false);
     }
-    
+  }
+
   
+  // console.log(profileData)
+  useEffect(() => {
     fetchDetails();
   }, []);
-  
+
+
   return (
     <ProfileContext.Provider
       value={{
@@ -70,7 +86,11 @@ function RandomUser() {
         gender,
         setGender,
         profileData,
-        isLoading
+        isLoading,
+        errorMsg,
+        fetchDetails,
+        setBackStory,
+        backStory
       }}
     >
       <BgLayout>

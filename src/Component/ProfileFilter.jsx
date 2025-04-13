@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ProfileContext } from "../Pages/RandomUser";
 
 function ProfileFilter() {
-  const { age, setAge, country, setCountry, gender, setGender } = useContext(ProfileContext);
+  const { age, setAge, country, setCountry, gender, setGender, fetchDetails } = useContext(ProfileContext);
 //   console.log(age)
 
 
@@ -79,8 +79,10 @@ function ProfileFilter() {
       </div>
       <div>
         <button
-          // onClick={getUser}
-          className="border-2 border-gray-300 text-white rounded-lg px-4 py-1 font-semibold bg-purple-700 text-base"
+          onClick={() => {
+            fetchDetails();
+          }}
+          className="border-2 border-gray-300 text-white cursor-pointer rounded-lg px-4 py-1 font-semibold bg-purple-700 text-base"
         >
           Re-generate 🔃
         </button>

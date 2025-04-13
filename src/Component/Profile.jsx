@@ -3,14 +3,19 @@ import { ProfileContext } from "../Pages/RandomUser";
 import ClipLoader from "react-spinners/ClipLoader";
 
 function Profile() {
-  const { profileData, isLoading } = useContext(ProfileContext);
+  const { profileData, isLoading, errorMsg } = useContext(ProfileContext);
   return (
     <>
       {isLoading ? (
         <div className="w-full md:w-6/12 flex justify-center items-center">
           <ClipLoader color="#ffffff" size={50} />
         </div>
-      ) : (
+      ) : errorMsg ? (
+        <div className="w-full md:w-6/12 flex justify-center items-center">
+          <p className="text-red-500 text-xl">{errorMsg}</p>
+        </div>
+      )
+       : (
         <div className="w-full p-10 font-semibold text-xl md:w-6/12">
           <div className="w-full">
             <p className="mb-4">

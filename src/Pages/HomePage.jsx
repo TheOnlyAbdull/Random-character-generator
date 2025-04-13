@@ -14,7 +14,7 @@ function HomePage() {
           Generate unique character in an instant, with captivating back
           stories. Perfect anyone looking for a spark of creativity 🤖
         </h2>
-        <button className="my-12 border-2 border-gray-300 text-white rounded-lg inline-block px-8 py-2 font-semibold bg-purple-700">
+        <button className="my-12 border-2 border-gray-300 cursor-pointer text-white rounded-lg inline-block px-8 py-2 font-semibold bg-purple-700">
           <Link to="RandomUser">Generate👨‍💻</Link>
         </button>
       </div>
