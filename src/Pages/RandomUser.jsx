@@ -97,7 +97,7 @@ function RandomUser() {
         <Header />
         <ProfileFilter />
 
-        <div className="py-4 md:flex md:mx-32">
+        <div className="py-4 lg:flex md:mx-32">
           {/* <Profile results={results} age={age} /> */}
           <Profile />
           <BackStory />

@@ -38,7 +38,8 @@ function BackStory() {
   }
 
   return (
-    <div className="border-2 mb-0 border-purple-500 rounded-2xl p-6 m-4 bg-slate-800 shadow-lg md:w-6/12">
+    // <div className="border-2 mb-0 border-purple-500 rounded-2xl p-6 m-4 bg-slate-800 shadow-lg md:w-6/12">
+    <div className="border-2 mb-0 lg:w-6/12 border-purple-500 rounded-2xl p-6 m-4 bg-slate-800 shadow-lg">
       <p className="text-center font-bold text-2xl text-purple-400 mb-4">
         AI back story 🤖
       </p>
